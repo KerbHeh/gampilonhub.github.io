@@ -6,8 +6,8 @@ Site: https://kerbheh.github.io/gampilonhub.github.io/
 
 - Biblioteca conectada ao Supabase; dados anteriores preservados.
 - Formato aceito: **GAMPILON_ROUTE_JSON versão 2**, conforme o JSON fornecido pelo usuário.
-- Conta por e-mail removida da interface. Login oficial Roblox preparado com PKCE; **ainda não ativado**.
-- Bloqueio externo confirmado no Creator Hub: a conta administradora precisa ter identidade verificada para criar aplicativo OAuth. Não há client ID/secret configurados.
+- Conta por e-mail removida da interface. Login oficial Roblox preparado com PKCE; **provedor custom:roblox ativado para testes**.
+- Aplicativo OAuth criado pelo titular. Provedor custom:roblox habilitado com openid/profile, e-mail opcional e retorno ao GitHub Pages. Aplicativo Roblox em modo privado, limitado a testes. O segredo fica somente no Supabase.
 - Toda rota importada aparece como **Autoria não verificada**. Compatibilidade do formato não prova autoria.
 - `mkv1`, código executável, versão 1 e formatos desconhecidos são rejeitados sem execução.
 
@@ -59,4 +59,5 @@ Referências oficiais:
 - https://create.roblox.com/docs/cloud/auth/oauth2-overview
 - https://create.roblox.com/docs/cloud/auth/oauth2-registration
 - https://supabase.com/docs/guides/auth/custom-oauth-providers
+
 
