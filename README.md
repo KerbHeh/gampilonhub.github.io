@@ -1,5 +1,10 @@
 # GAMPILON HUB
 
+## Estado da instalação
+
+Supabase conectado. Banco criado e permissões verificadas. Login por e-mail ativo com confirmação obrigatória. Endereço de retorno configurado para o GitHub Pages. O envio de e-mails ainda usa o serviço de testes do Supabase: somente endereços de membros da equipe recebem confirmação. Para cadastrar a comunidade, configure um serviço SMTP. Documentação: https://supabase.com/docs/guides/auth/auth-smtp
+
+
 Site estático em português, sem instalação ou compilação. HTML, CSS e JavaScript nativos. Seis abas, biblioteca com pesquisa e paginação, conta, publicação, importação por ID, visualização X/Z e download JSON.
 
 ## Experimentar agora
@@ -56,6 +61,6 @@ Tempo em segundos, posição X/Y/Z nas unidades do jogo, rotação Euler X/Y/Z e
 
 ## Verificação
 
-`node --test tests/validation.test.mjs` executa testes do contrato dos frames e IDs. Integração real de autenticação, banco e políticas exige configurar um projeto Supabase e executar os passos acima. SQL não foi validado contra um banco real sem credenciais.
+`node --test tests/validation.test.mjs` executa testes do contrato dos frames e IDs. Integração real de autenticação, banco e políticas exige configurar um projeto Supabase e executar os passos acima. Banco criado no projeto do GAMPILON HUB e validação SQL verificada: frames válidos aceitos, frames vazios rejeitados, RLS ativa e publicação anônima bloqueada. O fluxo completo de cadastro e publicação precisa ser confirmado com uma conta de usuário.
 
 Referências oficiais: https://supabase.com/docs/guides/database/postgres/row-level-security e https://supabase.com/docs/guides/auth/passwords.

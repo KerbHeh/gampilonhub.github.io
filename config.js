@@ -1,2 +1,5 @@
-// Somente valores PÚBLICOS. Nunca insira service_role ou chaves secretas.
-window.GAMPILON_CONFIG = { SUPABASE_URL: '', SUPABASE_ANON_KEY: '' };
+// Configuração pública: não contém chaves de administrador.
+window.GAMPILON_CONFIG = {
+  SUPABASE_URL: 'https://llytksvoqbljdlrpcrmf.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_R_pY8H8dvlKAUY2J_5z6Cg_eWrdeLMy'
+};
