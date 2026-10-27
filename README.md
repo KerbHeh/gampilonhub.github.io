@@ -1,66 +1,62 @@
-# GAMPILON HUB
+# GAMPILON HUB — formato v2 e identidade Roblox
 
-## Estado da instalação
+Site: https://kerbheh.github.io/gampilonhub.github.io/
 
-Supabase conectado. Banco criado e permissões verificadas. Login por e-mail ativo com confirmação obrigatória. Endereço de retorno configurado para o GitHub Pages. O envio de e-mails ainda usa o serviço de testes do Supabase: somente endereços de membros da equipe recebem confirmação. Para cadastrar a comunidade, configure um serviço SMTP. Documentação: https://supabase.com/docs/guides/auth/auth-smtp
+## Estado atual
 
+- Biblioteca conectada ao Supabase; dados anteriores preservados.
+- Formato aceito: **GAMPILON_ROUTE_JSON versão 2**, conforme o JSON fornecido pelo usuário.
+- Conta por e-mail removida da interface. Login oficial Roblox preparado com PKCE; **ainda não ativado**.
+- Bloqueio externo confirmado no Creator Hub: a conta administradora precisa ter identidade verificada para criar aplicativo OAuth. Não há client ID/secret configurados.
+- Toda rota importada aparece como **Autoria não verificada**. Compatibilidade do formato não prova autoria.
+- `mkv1`, código executável, versão 1 e formatos desconhecidos são rejeitados sem execução.
 
-Site estático em português, sem instalação ou compilação. HTML, CSS e JavaScript nativos. Seis abas, biblioteca com pesquisa e paginação, conta, publicação, importação por ID, visualização X/Z e download JSON.
-
-## Experimentar agora
-
-Sirva esta pasta com um servidor HTTP (por exemplo, `npx serve .`) e abra o endereço informado. Não abra como `file://`: módulos JavaScript exigem HTTP. Sem configuração, três rotas de exemplo ficam disponíveis. Conta e publicação não são simuladas e exigem Supabase. A validação de JSON funciona sem credenciais.
-
-## Publicar no repositório solicitado
-
-1. Entre no GitHub e abra https://github.com/KerbHeh/gampilonhub.github.io.
-2. Se já houver arquivos, guarde uma cópia antes de substituí-los. Envie **o conteúdo desta pasta** para a raiz da branch `main` usando Add file → Upload files. `index.html` deve ficar na raiz, sem pasta intermediária.
-3. Em Settings → Pages, escolha **Deploy from a branch**, branch `main`, pasta `/ (root)`, e salve.
-4. Aguarde o deployment do Pages e abra o endereço mostrado nas configurações. Para esse nome de repositório, ele normalmente será https://kerbheh.github.io/gampilonhub.github.io/ (o domínio raiz especial do usuário seria um repositório chamado `KerbHeh.github.io`).
-5. Sem Supabase, a versão publicada continuará como demonstração. Nenhuma chave secreta é necessária para hospedar os arquivos.
-
-## Ativar a biblioteca comunitária
-
-1. Crie um projeto em https://supabase.com/dashboard.
-2. No SQL Editor de um projeto **novo**, execute `supabase.sql` por completo. O script é uma migração inicial, não deve ser repetido em banco existente sem revisão. Ele não foi executado por este projeto.
-3. Em Authentication, habilite o provedor de e-mail/senha e mantenha confirmação de e-mail ativa. Em URL Configuration, use a URL real do Pages como Site URL e adicione-a às Redirect URLs. Configure SMTP para entrega confiável de e-mails de confirmação.
-4. Em Project Settings → API, copie a Project URL e a chave **pública anon ou publishable**. Edite `config.js`:
-
-```js
-window.GAMPILON_CONFIG = {
-  SUPABASE_URL: 'https://SEU-PROJETO.supabase.co',
-  SUPABASE_ANON_KEY: 'SUA-CHAVE-PUBLICA'
-};
-```
-
-Essas são variáveis públicas carregadas pelo navegador. GitHub Pages não injeta variáveis de ambiente em execução; o arquivo é a configuração pública. Não insira `service_role`, `sb_secret_…`, senha do banco ou token GitHub. O site não precisa dessas credenciais. Publique novamente `config.js`.
-
-5. Cadastre uma conta, confirme o e-mail, entre e publique o exemplo em Publicar Rota. A primeira inserção bem-sucedida recebe um ID formatado como #00001. A sequência é gerada pelo banco e pode conter lacunas após transações abortadas; não é um contador garantidamente contínuo.
-6. Abra outro navegador: confira pesquisa, importação e download do mesmo ID. Teste um ID inexistente e a perda de conexão. Confira que usuário sem sessão não consegue executar `publish_route` e que insert/update/delete diretos são negados.
-
-## Formato de dados v1
+## Contrato de dados
 
 ```json
-{"version":1,"fps":60,"frames":[{"t":0,"position":[0,0,0],"rotation":[0,0,0]},{"t":1,"position":[4,2,1],"rotation":[0,0.5,0]}]}
+{"format":"GAMPILON_ROUTE_JSON","version":2,"name":"Rota exemplo","samples":[{"CF":[0,0,0,1,0,0,0,1,0,0,0,1],"Velocity":[1,0,0],"Time":0,"State":"Running"},{"CF":[1,0,0,1,0,0,0,1,0,0,0,1],"Velocity":[1,0,0],"Time":1,"State":"Running"}]}
 ```
 
-Tempo em segundos, posição X/Y/Z nas unidades do jogo, rotação Euler X/Y/Z em radianos. Ordem de aplicação das rotações deve ser definida pelo importador do jogo. Entre 2 e 10.000 frames; FPS inteiro 1–240; t estritamente crescente entre 0 e 3600; componentes numéricos finitos até ±1.000.000. Campos adicionais são rejeitados. Limite conservador de 2 MB (o banco mede a representação JSONB textual e pode rejeitar um JSON compacto próximo ao teto).
+CF contém os 12 componentes de CFrame: três de posição e nove da matriz de rotação, sem converter para Euler. Velocity contém três componentes, Time é medido em segundos e State é um estado reconhecido de Humanoid. Campos adicionais são rejeitados. Até 2 MB, entre 2 e 10.000 amostras, tempo estritamente crescente de 0 a 3600 s, posições e velocidades até ±1.000.000, componentes da matriz até ±1,001. O banco mede o tamanho da representação JSONB textual e pode rejeitar arquivos compactos muito próximos ao limite.
 
-**Compatibilidade:** esse é um contrato novo e documentado, pois não foi fornecido um formato de gravação existente. Importar aqui significa recuperar e baixar dados. Não há conexão automática com Roblox, execução de Luau ou garantia de compatibilidade com scripts antigos. Integre um importador confiável no seu próprio jogo para reproduzir os dados.
+O arquivo real fornecido contém 142 amostras e passou na validação local. O conteúdo original não está incluído neste repositório. O arquivo mkv1 enviado foi rejeitado como esperado.
 
-## Segurança e operação
+## Banco
 
-- RLS ativa. Somente leitura pública das colunas da rota; `owner_id` não é disponibilizado pela API. Nenhum e-mail é salvo na tabela pública.
-- Publicação somente pela função autenticada, que atribui o proprietário a partir da sessão e exige e-mail confirmado. Nome do autor é um apelido autodeclarado, não prova de identidade Roblox.
-- Validação no cliente e no banco. Um envio por minuto e no máximo 30 por dia por usuário, com bloqueio transacional contra concorrência.
-- Sem edição ou remoção pela API do navegador. O administrador pode moderar/remover rotas pelo painel do Supabase. Não há painel administrativo neste site.
-- Textos de usuários são escapados antes de aparecer na página. CSP permite somente scripts locais e conexão com projetos `*.supabase.co`. Para domínio Supabase personalizado, ajuste `connect-src` no HTML.
-- Sessão e refresh token persistem no armazenamento local deste navegador. O acesso é renovado automaticamente quando necessário; Sair remove a sessão local. Navegadores que bloqueiam o armazenamento manterão o acesso apenas na aba. Senhas nunca são gravadas pelo aplicativo. Evite scripts de terceiros e mantenha confirmação de e-mail ativa.
-- Configure limites do Auth, CAPTCHA e SMTP no Supabase conforme o público crescer. O limite por usuário não impede abuso com múltiplas contas. Monitore custos, cotas e retenção; não há garantia de plano gratuito permanente.
-- Dados das rotas e nomes de autor são públicos. Não envie dados pessoais. O administrador deve estabelecer um canal de contato e regras de moderação antes de abrir a comunidade amplamente.
+Projeto existente: aplique `migration-v2.sql` uma vez. Instalação nova: execute `supabase.sql`. A migração existente já foi aplicada no projeto do HUB. Não repita scripts sem revisar o estado do banco.
 
-## Verificação
+`routes.publisher_roblox_id` identifica a conta de publicação; `authorship_status` permanece `unverified`. A função `publish_route` consulta `auth.identities` e exige o provedor `custom:roblox`; não usa nomes declarados, `p_author`, e-mail ou `user_metadata` editável como prova. A coluna author é derivada da identidade do provedor. Não existe ainda mecanismo de certificação da gravação.
 
-`node --test tests/validation.test.mjs` executa testes do contrato dos frames e IDs. Integração real de autenticação, banco e políticas exige configurar um projeto Supabase e executar os passos acima. Banco criado no projeto do GAMPILON HUB e validação SQL verificada: frames válidos aceitos, frames vazios rejeitados, RLS ativa e publicação anônima bloqueada. O fluxo completo de cadastro e publicação precisa ser confirmado com uma conta de usuário.
+RLS ativa, leitura pública somente das colunas da rota, nenhum acesso público a owner_id. Gravação direta negada. Publicação por função autenticada, um envio por minuto e 30 por dia por conta. Sessões antigas de e-mail não habilitam publicação. Rotas antigas não são convertidas nem apagadas automaticamente; formatos incompatíveis não podem ser importados pelo cliente v2.
 
-Referências oficiais: https://supabase.com/docs/guides/database/postgres/row-level-security e https://supabase.com/docs/guides/auth/passwords.
+## Ativar Entrar com Roblox
+
+1. O titular precisa cumprir a verificação de identidade exigida pelo Roblox. Não envie documentos, senha, cookie ou código para o HUB ou para o chat.
+2. No Creator Hub → OAuth 2.0 Apps, registre um aplicativo do HUB. A criação de credenciais e a aceitação de termos devem ser feitas/autorizadas pelo titular.
+3. Solicite somente `openid profile`. Não solicite e-mail nem permissões de inventário, compras ou edição.
+4. No Supabase → Authentication → Sign In / Providers → Custom Providers, prepare um provedor OIDC `custom:roblox`. Use discovery URL `https://apis.roblox.com/oauth/.well-known/openid-configuration`, deixe a validação do nonce e PKCE ativadas e marque `email_optional: true`.
+5. Copie a Callback URL exibida pelo Supabase e cadastre-a como redirect URI do aplicativo Roblox. Guarde o client secret **apenas no provedor Supabase**, nunca em config.js, no GitHub ou em Luau.
+6. Configure no Supabase o redirect do site `https://kerbheh.github.io/gampilonhub.github.io/`.
+7. Só depois de criar/habilitar o provedor, altere `ROBLOX_AUTH_ENABLED` para `true` em config.js. Os demais valores de config.js são URL e chave pública.
+8. Teste autorização, retorno PKCE, perfil Roblox correto, publicação, recarga, renovação e saída. O login depende de configuração e não foi testado de ponta a ponta sem o app OAuth.
+9. Para ampliar o público, cumpra as regras de revisão/publicação do Roblox. Um aplicativo em modo privado tem limites próprios.
+
+A interface nunca pede senha Roblox. A sessão Supabase fica no armazenamento local do navegador conforme a preferência do usuário. Tokens do provedor não são persistidos pelo aplicativo. O verificador PKCE fica temporariamente em sessionStorage e o código de retorno é removido da URL antes da troca.
+
+## Formato proposto kerebus\Az()
+
+O prefixo é um identificador público, não criptografia nem prova de autoria. O site ainda não aceita esse formato. O prompt entregue propõe um envelope de dados assinado por um serviço confiável, com chaves privadas fora do cliente e origem de gravação comprovada. Dados importados sem assinatura nunca devem receber autoria verificada.
+
+## Testes
+
+`node --test validation.test.mjs`: contrato v2, rejeição de mkv1 e campos forjados, vetores, estados, tempos, identidade e PKCE. Testes reais do banco confirmaram aceitação de v2 e rejeição de formato nulo, dados nulos e campos forjados. Nenhuma rota de teste foi publicada no banco.
+
+## Publicar
+
+GitHub Pages: arquivos na raiz da branch main, deploy a partir de `/ (root)`. Sirva via HTTP para testes locais. config.js contém somente configurações públicas; nunca use service_role ou sb_secret. Atualize a versão dos módulos no HTML/imports quando publicar mudanças para evitar cache antigo.
+
+Referências oficiais:
+- https://create.roblox.com/docs/cloud/auth/oauth2-overview
+- https://create.roblox.com/docs/cloud/auth/oauth2-registration
+- https://supabase.com/docs/guides/auth/custom-oauth-providers
+
