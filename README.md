@@ -50,7 +50,7 @@ Tempo em segundos, posição X/Y/Z nas unidades do jogo, rotação Euler X/Y/Z e
 - Validação no cliente e no banco. Um envio por minuto e no máximo 30 por dia por usuário, com bloqueio transacional contra concorrência.
 - Sem edição ou remoção pela API do navegador. O administrador pode moderar/remover rotas pelo painel do Supabase. Não há painel administrativo neste site.
 - Textos de usuários são escapados antes de aparecer na página. CSP permite somente scripts locais e conexão com projetos `*.supabase.co`. Para domínio Supabase personalizado, ajuste `connect-src` no HTML.
-- Sessão e refresh token somente em memória: recarregar encerra a sessão local. Senhas nunca são gravadas pelo aplicativo. Evite scripts de terceiros e mantenha confirmação de e-mail ativa.
+- Sessão e refresh token persistem no armazenamento local deste navegador. O acesso é renovado automaticamente quando necessário; Sair remove a sessão local. Navegadores que bloqueiam o armazenamento manterão o acesso apenas na aba. Senhas nunca são gravadas pelo aplicativo. Evite scripts de terceiros e mantenha confirmação de e-mail ativa.
 - Configure limites do Auth, CAPTCHA e SMTP no Supabase conforme o público crescer. O limite por usuário não impede abuso com múltiplas contas. Monitore custos, cotas e retenção; não há garantia de plano gratuito permanente.
 - Dados das rotas e nomes de autor são públicos. Não envie dados pessoais. O administrador deve estabelecer um canal de contato e regras de moderação antes de abrir a comunidade amplamente.
 
