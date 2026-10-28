@@ -2,6 +2,25 @@
 
 Site: https://kerbheh.github.io/gampilonhub.github.io/
 
+## Comunidade, privacidade e carregador
+
+O cargo é conferido no banco a partir da identidade OAuth Roblox. Somente dono e admins superiores podem ler, salvar e publicar o script principal. O perfil do HUB começa privado e pode ser aberto em Minha Conta. Isso não torna privado o perfil da própria Roblox e não apaga textos de rotas publicados voluntariamente. As consultas públicas da biblioteca ocultam o nome e o ID de contas privadas, inclusive na pesquisa por autor.
+
+A aba Gerenciar script salva versões privadas e permite ativar uma versão ou voltar a uma anterior. O conteúdo principal não fica no repositório público. Nenhum script principal foi publicado automaticamente: o responsável deve colar o código no painel, salvar e publicar. O código entregue a um dispositivo ainda pode ser copiado por quem o recebeu.
+
+Carregador público:
+```lua
+loadstring(game:HttpGet("https://llytksvoqbljdlrpcrmf.supabase.co/functions/v1/gampilon-runtime/loader"))()
+```
+
+O carregador usa transporte HTTPS com cabeçalhos fornecido pelo ambiente do usuário. Ele apresenta um código e um link do HUB. Em Conectar script, a conta OAuth precisa ter o mesmo UserId que iniciou o carregador. A autorização fornece apenas uma conexão limitada por 24 horas para baixar o script e usar presença; não transfere tokens Roblox ou a sessão administrativa do site. O script principal não é disponibilizado sem essa autorização.
+
+Mostrar jogadores começa desligado a cada execução. Quem ativa aparece para os demais participantes que ativaram na mesma partida do EB configurado. Nenhum dado de jogadores não participantes é retornado. O componente visual só coloca etiquetas locais em participantes retornados e presentes no jogo; não chama remotes do jogo nem altera o servidor. A partida é informada pelo cliente e não é uma presença comprovada pelo servidor Roblox. Sem sinal, a visibilidade expira em 45 segundos. Sinais fora de ordem não reativam uma opção que foi desligada.
+
+O perfil privado no site e a presença consentida no jogo são escolhas independentes. Minha Conta permite encerrar todas as conexões. O servidor guarda somente o último contexto da conexão, nunca trajetórias; registros expirados são removidos na próxima criação de conexão. A sessão administrativa do site não é enviada ao script.
+
+O sistema de compra de keys/VIP ainda não existe. VIP é um título reservado para uma atribuição futura controlada pelo servidor. O backend e as atribuições administrativas ficam fora deste repositório público. O endpoint público é só o bootstrap. Testes locais e transacionais do banco verificaram controle de acesso, pesquisa privada, reciprocidade e expiração. O comportamento visual ainda precisa ser testado no ambiente do usuário; não foi executado em um executor neste computador.
+
 ## Estado atual
 
 - Biblioteca conectada ao Supabase; dados anteriores preservados.
