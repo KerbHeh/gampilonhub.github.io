@@ -3,7 +3,7 @@ import {renderRouteEditor} from './v61/route-editor.mjs';
 import {renderForge} from './v61/forge-local.mjs';
 import {validateRoute,parseRouteText,parseId,formatId} from './validation.mjs?v=4';
 import {robloxIdentity,createPkce} from './roblox-auth.mjs?v=4';
-import {renderAdmin,renderConnect} from './community-ui.mjs?v=7';
+import {renderAdmin,renderConnect} from './community-ui.mjs?v=8';
 const $ = s => document.querySelector(s), main = $('#main');
 const cfg = window.GAMPILON_CONFIG || {}, live = !!(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY);
 const escape = v => String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
