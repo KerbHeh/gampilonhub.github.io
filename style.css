@@ -3,3 +3,7 @@
 
 
 .admin-panel{margin-top:24px}.code-editor{min-height:380px}.full-width{width:100%}.check-label{display:flex;align-items:center;gap:10px}.check-label input{width:auto}hr{border:0;border-top:1px solid var(--line);margin:25px 0}nav{flex-wrap:wrap;gap:15px}
+
+.forge-local{max-width:900px}.forge-local .toolbar{align-items:end}.forge-local .toolbar select{width:auto;min-width:210px}.forge-local .toolbar label{margin-bottom:10px}.forge-local ol{list-style:none;padding:0;display:grid;gap:12px}.forge-block{border:1px solid #443557;border-radius:12px;padding:18px;background:#120f1b}.forge-block-head{display:flex;justify-content:space-between;align-items:center;gap:15px}.forge-block-head .actions{margin:0;gap:5px}.forge-block-head button{padding:6px 12px}.forge-block textarea{min-height:150px}.forge-local .notice{max-width:100%}@media(max-width:600px){.forge-block-head{align-items:flex-start;flex-direction:column}.forge-local .toolbar>*{width:100%!important}}
+
+.academy-lesson{margin:16px 0}.academy-lesson fieldset{border:1px solid var(--line);border-radius:10px;margin:20px 0;padding:16px}.academy-answer{display:flex;gap:10px;align-items:center;font-weight:400;font-size:14px}.academy-answer input{width:auto}

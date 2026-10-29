@@ -6,7 +6,7 @@ Site: https://kerbheh.github.io/gampilonhub.github.io/
 
 O cargo é conferido no banco a partir da identidade OAuth Roblox. Somente dono e admins superiores podem ler, salvar e publicar o script principal. O perfil do HUB começa privado e pode ser aberto em Minha Conta. Isso não torna privado o perfil da própria Roblox e não apaga textos de rotas publicados voluntariamente. As consultas públicas da biblioteca ocultam o nome e o ID de contas privadas, inclusive na pesquisa por autor.
 
-A aba Gerenciar script salva versões privadas e permite ativar uma versão ou voltar a uma anterior. O conteúdo principal não fica no repositório público. Nenhum script principal foi publicado automaticamente: o responsável deve colar o código no painel, salvar e publicar. O código entregue a um dispositivo ainda pode ser copiado por quem o recebeu.
+A aba Gerenciar script salva versões privadas e permite ativar uma versão ou voltar a uma anterior. O conteúdo principal não fica no repositório público. O script principal é mantido em versões privadas no painel administrativo. O código entregue a um dispositivo ainda pode ser copiado por quem o recebeu.
 
 Carregador público:
 ```lua
@@ -64,7 +64,7 @@ A interface nunca pede senha Roblox. A sessão Supabase fica no armazenamento lo
 
 ## Formato proposto kerebus\Az()
 
-O prefixo é um identificador público, não criptografia nem prova de autoria. O site ainda não aceita esse formato. O prompt entregue propõe um envelope de dados assinado por um serviço confiável, com chaves privadas fora do cliente e origem de gravação comprovada. Dados importados sem assinatura nunca devem receber autoria verificada.
+O prefixo é um identificador público, não criptografia nem prova de autoria. O Editor de Rotas aceita KEREBUS Binary v1; a biblioteca anterior continua utilizando JSON v2. O prompt entregue propõe um envelope de dados assinado por um serviço confiável, com chaves privadas fora do cliente e origem de gravação comprovada. Dados importados sem assinatura nunca devem receber autoria verificada.
 
 ## Testes
 
@@ -80,3 +80,8 @@ Referências oficiais:
 - https://supabase.com/docs/guides/auth/custom-oauth-providers
 
 
+
+
+## Ferramentas locais preparadas
+
+O Editor de Rotas aceita JSON v2 e KEREBUS Binary v1, permite inspecionar pontos, deslocar trechos e exportar. O CRC32 detecta corrupção acidental, sem garantir autoria nem sigilo. O script publicado anterior ainda importa JSON v2; salve uma cópia JSON para usar nele. FORGE permite edição de dados declarativos, validação, importação, exportação e rascunho no navegador. A execução no script, nuvem e compartilhamento comunitário ainda não foram ativados. Academy tem quatro lições com progresso local. Nada disso altera as rotas existentes nem publica o conteúdo privado do script.
